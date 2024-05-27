@@ -368,45 +368,52 @@ export default function Home(props: HomeProps) {
     setMenuShow(true)
   }
 
+  const useGSAP = (callback) => {
+    useEffect(() => {
+      callback();
+    }, [callback]);
+  };
+  
+  // Example usage of useGSAP
   useGSAP(() => {
-    var tl = gsap.timeline()
-
+    var tl = gsap.timeline();
+  
     tl.from('nav a span', {
       y: 100,
       duration: 0.5,
       delay: 0.3,
       opacity: 0,
       stagger: 0.15,
-    })
-
+    });
+  
     tl.from('nav img', {
       y: 100,
       duration: 0.5,
       delay: 0.3,
       opacity: 0,
-    })
+    });
     tl.from('nav button', {
       y: 100,
       duration: 0.5,
       delay: 0.3,
       opacity: 0,
       stagger: 0.15,
-    })
-
+    });
+  
     tl.from('h1', {
       y: 100,
       duration: 0.5,
       delay: 0.3,
       opacity: 0,
-    })
-
+    });
+  
     gsap.from('.main img', {
       y: 100,
       duration: 0.5,
       delay: 0.3,
       opacity: 0,
-    })
-  }, [])
+    });
+  });
 
   return (
     <>
