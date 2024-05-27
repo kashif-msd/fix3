@@ -18,7 +18,7 @@ import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import confetti from 'canvas-confetti'
 import Countdown from 'react-countdown'
 
-import { useEffect, useMemo, useState , useRef } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { GatewayProvider } from '@civic/solana-gateway-react'
 import { defaultGuardGroup, network } from './config'
@@ -171,13 +171,6 @@ const candyMachinOps = {
 
 export default function Home(props: HomeProps) {
 
-  const elementRef = useRef(null);
-
-  useEffect(() => {
-    if (elementRef.current) {
-      elementRef.current.style.opacity = 10;
-    }
-  }, []);
  
   const { connection } = useConnection()
   const wallet = useWallet()
@@ -388,45 +381,45 @@ export default function Home(props: HomeProps) {
   };
   
   // Example usage of useGSAP
-  useGSAP(() => {
-    var tl = gsap.timeline();
+  // useGSAP(() => {
+  //   var tl = gsap.timeline();
   
-    tl.from('nav a span', {
-      y: 100,
-      duration: 0.5,
-      delay: 0.3,
-      opacity: 0,
-      stagger: 0.15,
-    });
+  //   tl.from('nav a span', {
+  //     y: 100,
+  //     duration: 0.5,
+  //     delay: 0.3,
+  //     opacity: 0,
+  //     stagger: 0.15,
+  //   });
   
-    tl.from('nav img', {
-      y: 100,
-      duration: 0.5,
-      delay: 0.3,
-      opacity: 0,
-    });
-    tl.from('nav button', {
-      y: 100,
-      duration: 0.5,
-      delay: 0.3,
-      opacity: 0,
-      stagger: 0.15,
-    });
+  //   tl.from('nav img', {
+  //     y: 100,
+  //     duration: 0.5,
+  //     delay: 0.3,
+  //     opacity: 0,
+  //   });
+  //   tl.from('nav button', {
+  //     y: 100,
+  //     duration: 0.5,
+  //     delay: 0.3,
+  //     opacity: 0,
+  //     stagger: 0.15,
+  //   });
   
-    tl.from('h1', {
-      y: 100,
-      duration: 0.5,
-      delay: 0.3,
-      opacity: 0,
-    });
+  //   tl.from('h1', {
+  //     y: 100,
+  //     duration: 0.5,
+  //     delay: 0.3,
+  //     opacity: 0,
+  //   });
   
-    gsap.from('.main img', {
-      y: 100,
-      duration: 0.5,
-      delay: 0.3,
-      opacity: 0,
-    });
-  });
+  //   gsap.from('.main img', {
+  //     y: 100,
+  //     duration: 0.5,
+  //     delay: 0.3,
+  //     opacity: 0,
+  //   });
+  // });
 
   return (
     <>
@@ -453,7 +446,7 @@ export default function Home(props: HomeProps) {
               className=''
             />
           </div>
-          <div className='lg:flex gap-5 items-center hidden' ref={elementRef} style={{ opacity: 0 }}>
+          <div className='lg:flex gap-5 items-center hidden'>
             <button className='!capitalize underline text-white font-semibold'>
               Back to Website
             </button>
