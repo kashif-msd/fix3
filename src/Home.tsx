@@ -18,7 +18,7 @@ import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import confetti from 'canvas-confetti'
 import Countdown from 'react-countdown'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState , useRef } from 'react'
 import styled from 'styled-components'
 import { GatewayProvider } from '@civic/solana-gateway-react'
 import { defaultGuardGroup, network } from './config'
@@ -171,13 +171,14 @@ const candyMachinOps = {
 
 export default function Home(props: HomeProps) {
 
-  const [opacity, setOpacity] = useState(0);
+  const elementRef = useRef(null);
 
   useEffect(() => {
-    setOpacity(100);
+    if (elementRef.current) {
+      elementRef.current.style.opacity = 10;
+    }
   }, []);
-
-
+ 
   const { connection } = useConnection()
   const wallet = useWallet()
   const candyMachineV3 = useCandyMachineV3(props.candyMachineId, candyMachinOps)
@@ -444,7 +445,7 @@ export default function Home(props: HomeProps) {
               </Link>
             ))}
           </div>
-          <div className='block relative md:w-[115px] md:h-[115px] w-20 h-20' style={{ opacity }}>
+          <div className='block relative md:w-[115px] md:h-[115px] w-20 h-20'>
             <Image
               src='/logo.png'
               alt='logo'
@@ -452,7 +453,7 @@ export default function Home(props: HomeProps) {
               className=''
             />
           </div>
-          <div className='lg:flex gap-5 items-center hidden' style={{ opacity }}>
+          <div className='lg:flex gap-5 items-center hidden' ref={elementRef} style={{ opacity: 0 }}>
             <button className='!capitalize underline text-white font-semibold'>
               Back to Website
             </button>
@@ -464,7 +465,7 @@ export default function Home(props: HomeProps) {
               <WalletMultiButton />
             )}
           </div>
-          <div className='md:hidden block relative text-white' style={{ opacity }}>
+          <div className='md:hidden block relative text-white'>
             <button onClick={HandleClick}>
               <FaBars className='text-3xl' />
             </button>
@@ -474,7 +475,7 @@ export default function Home(props: HomeProps) {
       {/* navbar  */}
       <div className='relative main'>
         {/* bottom  */}
-        <div className='w-[200px] h-[186px] absolute  top-[130%] left-10 hidden ' style={{ opacity }}>
+        <div className='w-[200px] h-[186px] absolute  top-[130%] left-10 hidden '>
           <Image
             src='/ewee-2.png'
             alt='evee'
@@ -482,25 +483,25 @@ export default function Home(props: HomeProps) {
           />
         </div>
         {/* top  */}
-        <div className='w-[200px] h-[186px] absolute top-[10%] -left-20 hidden' style={{ opacity }}>
+        <div className='w-[200px] h-[186px] absolute top-[10%] -left-20 hidden'>
           <Image
             src='/evee.png'
             alt='ewee-2'
             layout='fill'
           />
         </div>
-        <div className='w-[200px] h-[186px] absolute top-[0%] -right-16 hidden' style={{ opacity }}>
+        <div className='w-[200px] h-[186px] absolute top-[0%] -right-16 hidden'>
           <Image
             src='/ewee-2.png'
             alt='evee'
             layout='fill'
           />
         </div>
-        <h1 className='md:text-[67px] text-[40px] font-bold text-center' style={{ opacity }}>
+        <h1 className='md:text-[67px] text-[40px] font-bold text-center'>
           THE <br /> FAMILY TOKEN
         </h1>
         {/* Slider  */}
-        <div className='slider relative -mx-4 -z-0 md:mt-5 mt-8 bg-[#FF9900] text-black py-4 lg:rotate-[-6deg] rotate-[-10deg] lg:w-[105%]' style={{ opacity }}>
+        <div className='slider relative -mx-4 -z-0 md:mt-5 mt-8 bg-[#FF9900] text-black py-4 lg:rotate-[-6deg] rotate-[-10deg] lg:w-[105%]'>
           <Marquee direction='left'>
             <div className='flex lg:gap-10 gap-5 items-center'>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
@@ -516,7 +517,7 @@ export default function Home(props: HomeProps) {
           </Marquee>
         </div>
         {/* Slider  */}
-        <div className=' ' style={{ opacity }}>
+        <div className=' '>
           <div className='absolute z-20 left-0 top-[33%] -rotate-12'>
             <div className='lg:w-[500px] md:w-[200px] w-[230px] h-[400px]  object-contain'>
               <Image
@@ -528,7 +529,7 @@ export default function Home(props: HomeProps) {
             </div>
           </div>
 
-          <div className='absolute z-20 md:right-24 right-10 md:top-[10%] top-[50%] rotate-12' style={{ opacity }}>
+          <div className='absolute z-20 md:right-24 right-10 md:top-[10%] top-[50%] rotate-12'>
             <div className='lg:w-[300px] md:w-[150px] w-[200px] h-[400px] object-contain  '>
               <Image
                 src='/avatar-2.png'
@@ -539,7 +540,7 @@ export default function Home(props: HomeProps) {
             </div>
           </div>
         </div>
-        <div className='flex justify-center items-center md:mt-20 mt-14' style={{ opacity }}>
+        <div className='flex justify-center items-center md:mt-20 mt-14'>
           <div>
             {/* Increment Decrement */}
             <div>
@@ -563,7 +564,6 @@ export default function Home(props: HomeProps) {
               {/* <p className='text-center mt-2 font-normal'>4 ETH + Gas</p> */}
             </div>
             {/* Increment Decrement */}
-            <div style={{ opacity }}>
             {!guardStates.isStarted ? (
               <Countdown
                 date={guards.startTime}
@@ -575,14 +575,14 @@ export default function Home(props: HomeProps) {
             ) : !wallet?.publicKey ? (
               <>
                 {' '}
-                <p className='bg-[#FFFFFF33] text-white py-2 px-10 w-52  text-center' style={{ opacity }}>
+                <p className='bg-[#FFFFFF33] text-white py-2 px-10 w-52  text-center'>
                   Please Connect Wallet First
                 </p>{' '}
               </>
             ) : // ) : !guardStates.canPayFor ? (
             //   <h1>You cannot pay for the mint</h1>
             !guardStates.isWalletWhitelisted ? (
-              <div style={{ opacity }}>
+              <div>
                 <p>Mint is private</p>
                 <p>
                   You’re currently not allowed to mint. Try again at a later
@@ -592,7 +592,7 @@ export default function Home(props: HomeProps) {
             ) : (
               <>
                 <>
-                <div style={{ opacity }}>{!!candyMachineV3.items.remaining &&
+                  {!!candyMachineV3.items.remaining &&
                   guardStates.hasGatekeeper &&
                   wallet.publicKey &&
                   wallet.signTransaction ? (
@@ -617,13 +617,10 @@ export default function Home(props: HomeProps) {
                     <div>
                       <MintButton />
                     </div>
-                  )}</div>
-                  
+                  )}
                 </>
               </>
             )}
-            </div>
-         
 
             {/* <button className='bg-[#FEEB1A] text-black w-[287px] border-2 border-white rounded-lg py-3 mt-7 font-bold'>
               Mint Family
