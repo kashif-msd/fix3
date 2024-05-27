@@ -1,5 +1,6 @@
 // =================================
 import Marquee from 'react-fast-marquee'
+import MobileMenu from "./components/mobileMenu"
 
 import Link from 'next/link'
 
@@ -371,6 +372,7 @@ export default function Home(props: HomeProps) {
   const [menuShow, setMenuShow] = useState(false)
 
   const HandleClick = () => {
+    console.log("clicked");
     setMenuShow(true)
   }
 
@@ -424,6 +426,7 @@ export default function Home(props: HomeProps) {
   return (
     <>
       {/* navbar  */}
+      
       <div className='relative'>
         <nav className='md:px-10 px-5 py-6 flex items-center justify-between '>
           <div className='md:flex items-center gap-3 hidden'>
@@ -465,6 +468,9 @@ export default function Home(props: HomeProps) {
           </div>
         </nav>
       </div>
+      {
+        menuShow && <MobileMenu  setMenuShow={setMenuShow} />
+      }
       {/* navbar  */}
       <div className='relative main'>
         {/* bottom  */}
@@ -567,10 +573,12 @@ export default function Home(props: HomeProps) {
               />
             ) : !wallet?.publicKey ? (
               <>
-                {' '}
-                <p className='bg-[#FFFFFF33] text-white py-2 px-10 w-52  text-center'>
-                  Please Connect Wallet First
-                </p>{' '}
+               <div>
+                {
+                  !PublicKey ? <></> : <p>Connect Wallet First</p>
+                }
+                <WalletMultiButton />
+               </div>
               </>
             ) : // ) : !guardStates.canPayFor ? (
             //   <h1>You cannot pay for the mint</h1>
